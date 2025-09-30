@@ -4,7 +4,10 @@ var express = require("express")
 var cors = require("cors")
 
 var ConnecttoDataBase = require("./database/db")
-const router = require("./routes/book-routes")
+const bookroute = require("./routes/book-routes")
+var productroutes = require("./routes/product-routes")
+
+
 var app = express()
 
 ConnecttoDataBase()
@@ -12,11 +15,11 @@ ConnecttoDataBase()
 app.use(express.json())
 app.use(cors())
 
-app.use("/api/books",router)
+app.use("/api/books",bookroute)
+app.use("/api/products",productroutes)
 
-
-const Book = require("./path-to-your-model-file");
-
+const Book = require("./model/books");
+var products = require("./model/products")
 
 Book.create({
     title: "it starts with us",
@@ -36,10 +39,16 @@ Book.create({
 
 Book.create({
     title : "love hypothesis",
-    author :"prassana",
+    author :"hellooo",
     city : "kovvur",
     price : 40,
     available : false
+})
+
+products.create({
+    name : "samsung",
+    price : 120000,
+    avaliable : true
 })
 
 var PORT = process.env.PORT || 2026
